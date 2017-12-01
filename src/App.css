@@ -22,3 +22,50 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.content-wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/*$theme-color: #6ac259;*/
+header{
+  background-color: #6ac259;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.side-bar {
+  width: 15%;
+  border: 2px solid #6ac259;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0px 20px;
+  margin: 28px 20px 0 0;
+  background-color: #6ac259;
+  color: #fff;
+}
+
+.main-content {
+  width: 70%;
+  display: inline-block;
+}
+
+div.post-wrapper {
+  float: left;
+}
+
+.post-details {
+  color: #6ac259;
+  float: right;
+  list-style-type: none;
+  text-align:right;
+}
+
+.btn {
+  border: 1px solid #6ac259;
+  padding: 2px;
+  margin: 30px 5px;
+}

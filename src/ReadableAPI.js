@@ -20,7 +20,19 @@ export const getAllCategories = () =>
 export const getAll = () =>
   fetch(`${api}/posts`, { headers })
     .then(res => res.json())
-    // .then(data => data.posts)
+    //.then(data => data.posts) --> Uncommenting this line gives error and doesnt return posts
+
+export const votePost = (isUpVote, id) =>
+  fetch(`${api}/posts/${id}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ isUpVote, id })
+  }).then(res => res.json())
+    //.then(data => data.posts)
+
 
 // export const get = (bookId) =>
 //   fetch(`${api}/books/${bookId}`, { headers })
