@@ -3,6 +3,7 @@ import * as ReadableAPI from './ReadableAPI.js'
 import { Route } from 'react-router-dom'
 import Category from './Categories.js'
 import Post from './Post.js'
+import CreatePost from './CreatePost.js'
 import './App.css';
 
 class App extends Component {
@@ -20,20 +21,28 @@ class App extends Component {
     })
   }
   vote = (isUpVote, postid) => {
-    console.log(isUpVote);
-    console.log(postid);
+
 
     var voteStatus;
     if(isUpVote === true){
-      voteStatus = "upvote";
+      voteStatus = "upVote";
     } else {
-      voteStatus = "downvote";
+      voteStatus = "downVote";
     }
-    console.log(postid);
-    console.log(voteStatus);
-    ReadableAPI.votePost(voteStatus, postid).then((posts) => {
-      this.setState(state => ({ posts: posts }))
+
+
+    ReadableAPI.votePost(voteStatus, postid).then((resp) => {
+      //this.stateposts.filter(x => x.id != postid)
+      //posts: state.posts.filter((x) => x.id !== postid)
+      
+      this.setState((state) => ({
+        posts: state.posts.filter((x) => x.id !== postid),
+        posts: state.posts.concat([resp]),
+      }))
+      var a = resp
+      console.log(resp)
     })
+
   }
 
   render() {
@@ -47,13 +56,17 @@ class App extends Component {
               <Category categories={this.state.categories}></Category>
             </div>
             <div className="main-content">
-              <Route path="/" render={() => (
+              <Route exact path="/" render={() => (
                 <Post posts={this.state.posts} vote={this.vote}></Post>
               )}/>
               <Route path="/category/:category" render={() => (
                 <Post posts={this.state.posts} vote={this.vote}></Post>
               )}/>
+              <Route path="/create-post" render={() => (
+                <CreatePost></CreatePost>
+              )}/>
             </div>
+
           </div>
       </div>
     );

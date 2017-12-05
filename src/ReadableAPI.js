@@ -29,7 +29,7 @@ export const votePost = (isUpVote, id) =>
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ isUpVote, id })
+    body: JSON.stringify({ option: isUpVote }) //option: is required
   }).then(res => res.json())
     //.then(data => data.posts)
 
