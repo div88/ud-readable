@@ -20,21 +20,47 @@ class App extends Component {
       this.setState({ posts: posts })
     })
   }
+
+  /*  */
+  editpost = (id,title,body) => {
+    console.log("Edit post: ----- " + id);
+    console.log("Edit post: ----- " + title);
+    console.log("Edit post: ----- " + body);
+    // ReadableAPI.votePost(voteStatus, postid).then((resp) => {
+    //   this.setState((state) => ({
+    //     posts: state.posts.filter((x) => x.id !== postid),
+    //     posts: state.posts.concat([resp]),
+    //   }))
+    //   var a = resp
+    //   console.log(resp)
+    // })
+  }
+
+  /*  */
+  deletePost = (post) => {
+    console.log("Delete post: **** " + post);
+    // ReadableAPI.votePost(voteStatus, postid).then((resp) => {
+    //   this.setState((state) => ({
+    //     posts: state.posts.filter((x) => x.id !== postid),
+    //     posts: state.posts.concat([resp]),
+    //   }))
+    //   var a = resp
+    //   console.log(resp)
+    // })
+  }
+
+  /* Vote a post method */
   vote = (isUpVote, postid) => {
-
-
     var voteStatus;
     if(isUpVote === true){
       voteStatus = "upVote";
     } else {
       voteStatus = "downVote";
     }
-
-
     ReadableAPI.votePost(voteStatus, postid).then((resp) => {
       //this.stateposts.filter(x => x.id != postid)
       //posts: state.posts.filter((x) => x.id !== postid)
-      
+
       this.setState((state) => ({
         posts: state.posts.filter((x) => x.id !== postid),
         posts: state.posts.concat([resp]),
@@ -42,7 +68,6 @@ class App extends Component {
       var a = resp
       console.log(resp)
     })
-
   }
 
   render() {
