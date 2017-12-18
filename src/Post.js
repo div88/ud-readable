@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import upvote from '../public/upvote.png'
-import downvote from '../public/downvote.png'
+import upvote from './upvote.png'
+import downvote from './downvote.png'
 
 class Post extends Component {
   timeConversion = (timeStamp) => {
@@ -11,7 +11,7 @@ class Post extends Component {
   }
   render() {
     var posts = this.props.posts;
-    var categories = location.pathname.split("/");
+    var categories = window.location.pathname.split("/");
     var category = categories[categories.length - 1];
     console.log(posts);
 
