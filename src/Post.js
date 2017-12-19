@@ -31,8 +31,8 @@ class Post extends Component {
                   <li>{'-'+post.author}</li>
 
                   <li>
-                    <span className="btn" alt="up-vote" onClick={(event) => this.props.editpost(post.id,post.title,post.body)} >Edit</span>
-                    <span className="btn" alt="down-vote" onClick={(event) => this.props.deletePost(post)}>Delete</span>
+                    <span className="btn" alt="up-vote" onClick={(event) => this.props.editPost(post.id,post.title,post.body)} >Edit</span>
+                    <span className="btn" alt="down-vote" onClick={(event) => this.props.deletePost(post.id)}>Delete</span>
                   </li>
 
                   <li>

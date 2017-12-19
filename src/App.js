@@ -22,10 +22,11 @@ class App extends Component {
   }
 
   /*  */
-  editpost = (id,title,body) => {
+  editPost = (id,title,body) => {
     console.log("Edit post: ----- " + id);
     console.log("Edit post: ----- " + title);
     console.log("Edit post: ----- " + body);
+    
     // ReadableAPI.votePost(voteStatus, postid).then((resp) => {
     //   this.setState((state) => ({
     //     posts: state.posts.filter((x) => x.id !== postid),
@@ -37,16 +38,17 @@ class App extends Component {
   }
 
   /*  */
-  deletePost = (post) => {
-    console.log("Delete post: **** " + post);
-    // ReadableAPI.votePost(voteStatus, postid).then((resp) => {
-    //   this.setState((state) => ({
-    //     posts: state.posts.filter((x) => x.id !== postid),
-    //     posts: state.posts.concat([resp]),
-    //   }))
-    //   var a = resp
-    //   console.log(resp)
-    // })
+  deletePost = (postid) => {
+    console.log("Delete post: **** " + postid);
+    let posts = this.state.posts.filter((x) => x.id !== postid)
+    ReadableAPI.deletePost(postid).then((resp) => {
+      let posts = this.state.posts.filter((x) => x.deleted !== true)
+      this.setState((state) => ({
+        posts: posts.concat([resp])
+      }))
+      var a = resp
+      console.log(resp)
+    })
   }
 
   /* Vote a post method */
@@ -57,16 +59,12 @@ class App extends Component {
     } else {
       voteStatus = "downVote";
     }
-    ReadableAPI.votePost(voteStatus, postid).then((resp) => {
-      //this.stateposts.filter(x => x.id != postid)
-      //posts: state.posts.filter((x) => x.id !== postid)
-
+    let posts = this.state.posts.filter((x) => x.id !== postid)
+    ReadableAPI.votePost(voteStatus, postid).then((resp) => {     
       this.setState((state) => ({
-        posts: state.posts.filter((x) => x.id !== postid),
-        posts: state.posts.concat([resp]),
+        posts: posts.concat([resp])
       }))
       var a = resp
-      console.log(resp)
     })
   }
 
@@ -82,10 +80,10 @@ class App extends Component {
             </div>
             <div className="main-content">
               <Route exact path="/" render={() => (
-                <Post posts={this.state.posts} vote={this.vote}></Post>
+                <Post posts={this.state.posts} vote={this.vote} editPost={this.editPost} deletePost={this.deletePost}></Post>
               )}/>
               <Route path="/category/:category" render={() => (
-                <Post posts={this.state.posts} vote={this.vote}></Post>
+                <Post posts={this.state.posts} vote={this.vote} editPost={this.editPost} deletePost={this.deletePost}></Post>
               )}/>
               <Route path="/create-post" render={() => (
                 <CreatePost></CreatePost>
