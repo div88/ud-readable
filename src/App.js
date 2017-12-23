@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as ReadableAPI from './ReadableAPI.js'
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import Category from './Categories.js'
 import Post from './Post.js'
 import CreatePost from './CreatePost.js'
@@ -19,6 +19,17 @@ class App extends Component {
     ReadableAPI.getAll().then((posts) => {
       this.setState({ posts: posts })
     })
+  }
+
+   /*  */
+   createPost = (post) => {  
+      var D = new Date();
+      post.id = D.getTime()+ 'xyz';
+      post.timestamp = D.getTime();
+    
+      ReadableAPI.createPost(post).then((posts) => {
+          // this.setState({ posts: posts })
+      })
   }
 
   /*  */
@@ -73,6 +84,9 @@ class App extends Component {
       <div>
           <header>
             <h1>Readable App</h1>
+            <div className="open-search">
+              <Link to="/post" onClick={() => this.setState({ showCreatePostPage: true })}>Create Post</Link>
+            </div>
           </header>
           <div className="content-wrapper">
             <div className="side-bar">
@@ -87,6 +101,14 @@ class App extends Component {
               )}/>
               <Route path="/create-post" render={() => (
                 <CreatePost></CreatePost>
+              )}/>
+               <Route path="/post" render={({ history }) => (
+                  <CreatePost categories={this.state.categories}
+                    onCreatePost={(post) => {
+                        this.createPost(post)
+                        history.push('/')
+                    }}
+                  />
               )}/>
             </div>
 

@@ -53,13 +53,8 @@ header{
   display: inline-block;
 }
 
-div.post-wrapper {
-  float: left;
-}
-
 .post-details {
   color: #6ac259;
-  float: right;
   list-style-type: none;
   text-align:right;
 }
