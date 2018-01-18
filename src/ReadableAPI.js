@@ -33,14 +33,14 @@ export const votePost = (isUpVote, id) =>
   }).then(res => res.json())
     //.then(data => data.posts)
 
-export const editPost = (title, body, id) =>
-  fetch(`${api}/posts/${id}`, {
+export const editPost = (post) =>
+  fetch(`${api}/posts/${post.id}`, {
     method: 'PUT',
     headers: {
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ title, body })
+    body: JSON.stringify({ title: post.title, body: post.body })
   }).then(res => res.json())
     //.then(data => data.posts)
 
@@ -63,7 +63,7 @@ export const createPost = (post) =>
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(post)
-    })//.then(res => res.json())
+    }).then(res => res.json())
       //.then(data => data.posts)
 
       

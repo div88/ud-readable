@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import upvote from './upvote.png'
 import downvote from './downvote.png'
+import { Link } from 'react-router-dom';
 
 class Post extends Component {
   timeConversion = (timeStamp) => {
@@ -31,7 +32,14 @@ class Post extends Component {
                   <li>{'-'+post.author}</li>
 
                   <li>
-                    <span className="btn" alt="up-vote" onClick={(event) => this.props.editPost(post.id,post.title,post.body)} >Edit</span>
+                    
+                  <Link to={{
+                      pathname: '/post',
+                      state: {post: post}
+                  }}> 
+                      <span className="btn" alt="up-vote" >Edit</span>
+                  </Link>  
+
                     <span className="btn" alt="down-vote" onClick={(event) => this.props.deletePost(post.id)}>Delete</span>
                   </li>
 

@@ -4,6 +4,7 @@ import { Route, Link } from 'react-router-dom'
 import Category from './Categories.js'
 import Post from './Post.js'
 import CreatePost from './CreatePost.js'
+import EditPost from './EditPost.js'
 import './App.css';
 
 class App extends Component {
@@ -27,38 +28,31 @@ class App extends Component {
       post.id = D.getTime()+ 'xyz';
       post.timestamp = D.getTime();
     
-      ReadableAPI.createPost(post).then((posts) => {
-          // this.setState({ posts: posts })
+      ReadableAPI.createPost(post).then((post) => {
+          let posts = this.state.posts
+          this.setState({ posts: posts.concat(post)})
       })
   }
 
   /*  */
-  editPost = (id,title,body) => {
-    console.log("Edit post: ----- " + id);
-    console.log("Edit post: ----- " + title);
-    console.log("Edit post: ----- " + body);
+  editPost = (post) => {
     
-    // ReadableAPI.votePost(voteStatus, postid).then((resp) => {
-    //   this.setState((state) => ({
-    //     posts: state.posts.filter((x) => x.id !== postid),
-    //     posts: state.posts.concat([resp]),
-    //   }))
-    //   var a = resp
-    //   console.log(resp)
-    // })
+    ReadableAPI.editPost(post).then((resp) => {
+      let posts = this.state.posts.filter((x) => x.id === resp.id)
+      this.setState((state) => ({
+        posts: posts.concat([resp])
+      }))
+    })
   }
 
   /*  */
   deletePost = (postid) => {
-    console.log("Delete post: **** " + postid);
     let posts = this.state.posts.filter((x) => x.id !== postid)
     ReadableAPI.deletePost(postid).then((resp) => {
       let posts = this.state.posts.filter((x) => x.deleted !== true)
       this.setState((state) => ({
         posts: posts.concat([resp])
       }))
-      var a = resp
-      console.log(resp)
     })
   }
 
@@ -75,7 +69,6 @@ class App extends Component {
       this.setState((state) => ({
         posts: posts.concat([resp])
       }))
-      var a = resp
     })
   }
 
@@ -85,7 +78,7 @@ class App extends Component {
           <header>
             <h1>Readable App</h1>
             <div className="open-search">
-              <Link to="/post" onClick={() => this.setState({ showCreatePostPage: true })}>Create Post</Link>
+              <Link to="/create-post" onClick={() => this.setState({ showCreatePostPage: true })}>Create Post</Link>
             </div>
           </header>
           <div className="content-wrapper">
@@ -99,17 +92,24 @@ class App extends Component {
               <Route path="/category/:category" render={() => (
                 <Post posts={this.state.posts} vote={this.vote} editPost={this.editPost} deletePost={this.deletePost}></Post>
               )}/>
-              <Route path="/create-post" render={() => (
-                <CreatePost></CreatePost>
-              )}/>
-               <Route path="/post" render={({ history }) => (
+              
+              <Route path="/create-post" render={({ history }) => (
                   <CreatePost categories={this.state.categories}
                     onCreatePost={(post) => {
                         this.createPost(post)
                         history.push('/')
-                    }}
+                    }} 
                   />
               )}/>
+              <Route path="/post" render={({ history }) => (
+                  <EditPost categories={this.state.categories}
+                    onEditPost={(post) => {
+                        this.editPost(post)
+                        history.push('/')
+                    }} 
+                  />
+              )}/>
+              
             </div>
 
           </div>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import serializeForm from 'form-serialize'
 
 class CreatePost extends Component {
+
   handleSubmit = (e) => {
     e.preventDefault()
     const values = serializeForm(e.target, {hash: true})
@@ -19,8 +20,8 @@ class CreatePost extends Component {
         <form onSubmit={(e) => this.handleSubmit(e)} className="create-post-form">
           <div className="create-contact-details">
             <input type="text" name="title" placeholder="Title"/>
-            <input type="text" name="body" placeholder="Body"/>
-            <input type="text" name="author" placeholder="Author"/>
+            <input type="text" name="body" placeholder="Body"  />
+            <input type="text" name="author" placeholder="Author" />
               {categories.map((category) => (
                 <div key={category.name}>
                 <input type="radio" name="category" value={category.name}/>{category.name}
