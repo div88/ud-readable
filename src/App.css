@@ -48,6 +48,10 @@ header{
   color: #fff;
 }
 
+.time {
+  display: block;
+}
+
 .main-content {
   width: 70%;
   display: inline-block;
@@ -60,7 +64,25 @@ header{
 }
 
 .btn {
-  border: 1px solid #6ac259;
+  /* border: 1px solid #6ac259; */
   padding: 2px;
-  margin: 30px 5px;
+  margin: 10px 5px;
 }
+
+.post-wrapper h3{
+  margin-bottom: 0px;
+}
+
+.post-wrapper p{
+  margin-top: 5px;
+}
+
+/* .btn-edit{
+  background-image: url('../src/edit.png');
+  height: 32px;
+}
+
+.btn-delete{
+  background-image: url('../src/delete.png');
+  height: 32px;
+} */

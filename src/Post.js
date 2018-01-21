@@ -24,32 +24,31 @@ class Post extends Component {
       <div>
         {posts.map((post) =>(
           <div key={post.id} className="post-wrapper">
-            <h1>{post.title}</h1>
+            <h3>{post.title}</h3>
             <p>{post.body}</p>
+            <p>{'-'+post.author} <span className="time">{this.timeConversion(post.timestamp)}</span></p>
+            <p></p>
+            
+            <hr/>
                 <ul className="post-details">
-                  <li>{this.timeConversion(post.timestamp)}
-                  </li>
-                  <li>{'-'+post.author}</li>
-
                   <li>
-                    
-                  <Link to={{
-                      pathname: '/post',
-                      state: {post: post}
-                  }}> 
-                      <span className="btn" alt="up-vote" >Edit</span>
-                  </Link>  
-
-                    <span className="btn" alt="down-vote" onClick={(event) => this.props.deletePost(post.id)}>Delete</span>
-                  </li>
-
-                  <li>
+                    <Link to={{
+                        pathname: '/post',
+                        state: {post: post}
+                    }}> 
+                        <span className="btn btn-edit" alt="up-vote" >Edit</span>
+                    </Link>  
+                    <span className="btn btn-delete" alt="down-vote" onClick={(event) => this.props.deletePost(post.id)}>Delete</span>
                     <button className="btn" onClick={(event) => this.props.vote(true, post.id)}>
                       <img src={upvote}/>
                     </button>
                     <button className="btn" onClick={(event) => this.props.vote(false, post.id)}>
                       <img src={downvote}/>
                     </button>
+                  </li>
+
+                  <li>
+                    
                   </li>
                   <li>
                     {post.voteScore}
